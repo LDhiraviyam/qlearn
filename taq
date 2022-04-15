@@ -1,0 +1,24 @@
+/generate dummy trade, quote and position tables for later use. defines configuration variables and schemas
+/merge 3 tables in it.
+
+srcs:`LP1`LP2`LP3`LP4`LP5
+syms:`APPL`GOOG`CAT`NYSE!(100;200;250.;50.)
+n:1000
+acctid:10?100i
+m:{y+0.01*sums x?-6+til 13}
+b:{x-0.01*count[x]?0 1 2 3 4 5 6}
+a:{x+0.01*count[x]?0 1 2 3 4 5 6}
+s:{x?50 100 200 300.}
+
+/table schema
+
+quote:flip `time`sym`src`bid`ask`bsize`asize!"tssffff"$\:()
+trade:flip `time`sym`src`price`amount`side!"tssffs"$\:() 
+positions:flip `time`sym`src`price`amount`side`acct`id!"tssffsij"$\:()
+
+/table insert
+
+quote:flip `time`sym`src`bid`ask`bsize`asize!(asc n1?23:59:59.999;raze (n#) each key syms;n1?srcs;b mid;a mid:raze m[n;] each value syms;s n1;s n1:n*count syms)
+trade:select time,sym,src,price:?[side=`buy;bid;ask],amount:?[side=`buy;bsize; asize],side from update side:count[i]?`buy`sell from (`int$n1%10)?quote
+positions:update id:i from update acct:count[i]?acctid from (`int$n1%10)?trade
+time:`time xasc' `quote`trade`positions
