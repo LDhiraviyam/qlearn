@@ -10,12 +10,6 @@ a:{x+0.01*count[x]?0 1 2 3 4 5 6}
 s:{x?50 100 200 300.}
 flag:1
 
-/table schema
-
-/quote:flip `time`sym`src`bid`ask`bsize`asize!"nssffff"$\:()
-/trade:flip `time`sym`src`price`amount`side!"nssffs"$\:() 
-/positions:flip `time`sym`src`price`amount`side`acct`id!"nssffsij"$\:()
-
 
 .z.ts:{
   mid:raze m[n;] each value syms;n1::n*count syms;k:raze (n#) each key syms;
