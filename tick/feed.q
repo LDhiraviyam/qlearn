@@ -15,7 +15,7 @@ flag:1
   mid:raze m[n;] each value syms;n1::n*count syms;k:raze (n#) each key syms;
   $[0<flag mod 10;
     h(".u.upd";`quote;(asc n1?.z.N;k;n1?srcs;b mid;a mid;s n1;s n1));
-	$[0<flag mod 100;
+    $[0<flag mod 100;
       h(".u.upd";`trade;(asc n1?.z.N;k;n1?srcs;b mid;s n1;n1?side));
       h(".u.upd";`positions;(asc n1?.z.N;k;n1?srcs;b mid;s n1;n1?side;n1?10?100i;n1?100))]];
   flag+:1; }
